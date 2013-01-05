@@ -6,7 +6,7 @@ To register a handler, create a file in the handlers directory that contains you
 
 ## Example
 
-`root_handler.py`:
+`handlers/root_handler.py`:
 
 ```python
 import tornado.web
