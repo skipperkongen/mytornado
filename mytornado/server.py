@@ -11,7 +11,7 @@ import tornado.web
 from tornado.options import define, options
 
 define("port", default=8080, help="run on the given port", type=int)
-define("baseuri", default='', help="use base uri prefix for redirects", type=str)
+define("baseuri", default='', help="base uri prefix for redirects", type=str)
 
 class MyTornadoServer(object):
 	"""docstring for TornadoBase"""
