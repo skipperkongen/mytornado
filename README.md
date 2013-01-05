@@ -29,12 +29,11 @@ class RootHandler(tornado.web.RequestHandler):
 	
 	@staticmethod
 	def get_url_pattern():
-		"""Required for the server to register the handler (will crash if this method is not implemented).
-		Notice that it is a static method"""
+		"""You handler class must implement this method. Notice that it is a static method"""
 		return r'/'
 		
 	def initialize(self, message):
-		"""Only implement this method if you're using a config file that matches the module name."""
+		"""(Optional) you must implement this method if you're using a config file that matches the module name (see config example below)."""
 		self.message = message
 		
 	def get(self):
