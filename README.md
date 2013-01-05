@@ -14,6 +14,12 @@ To register a new handler, create a Python module file in the handlers directory
 
 ## Example handler
 
+`handlers/__init__.py`:
+
+```python
+from root_handler import *
+```
+
 `handlers/root_handler.py`:
 
 ```python
