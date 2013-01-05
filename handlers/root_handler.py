@@ -10,4 +10,4 @@ class RootHandler(tornado.web.RequestHandler):
 		self.message = message
 		
 	def get(self):
-		self.write('Welcome to /. Message: %s' % self.message)
+		self.render('index.html', message=self.message)

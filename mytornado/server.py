@@ -21,8 +21,8 @@ class MyTornadoServer(object):
 		tornado.options.parse_command_line()
 		
 		settings = {
-			"static_path": os.path.join(os.path.dirname(__file__), "static"),
-			"template_path": os.path.join(os.path.dirname(__file__), "templates")
+			"static_path": os.path.join(os.path.dirname(__file__), "../static"),
+			"template_path": os.path.join(os.path.dirname(__file__), "../templates")
 		}
 		
 		handlers = self.load_handlers()
