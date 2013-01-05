@@ -35,7 +35,7 @@ class MyTornadoServer(object):
 			handlers, **settings
 		)		
 		
-		http_server = tornado.httpserver.HTTPServer(app)
+		http_server = tornado.httpserver.HTTPServer(app,xheaders=True)
 		http_server.listen(options.port)
 		print "Starting tornado server on port %d" % (options.port)
 		tornado.ioloop.IOLoop.instance().start()
