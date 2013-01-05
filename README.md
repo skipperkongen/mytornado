@@ -6,9 +6,9 @@ I'm writing a lot of Tornado applications, and this repository contains a templa
 
 ## Requirements for handlers
 
-To register a new handler, create a Python module file in the handlers directory that contains your handler class(es). 
+To register a new handler, create a Python module file in the handlers directory that contains your handler class(es). Each module may contain any number of handlers, which will all be loaded when the server starts.
 
-* Your handler classes must inherit from `tornado.web.RequestHandler`
+* Your handler class(es) must inherit from `tornado.web.RequestHandler`
 * Each handler class must have a static method called `get_url_pattern()` that returns the URL pattern that the handler is responsible for
 * You must include an import of your handler class in the `handlers.__init__.py` module, e.g. `from my_handler.py ìmport *`.
 
