@@ -50,7 +50,9 @@ You can optionally supply a configuration file with the same filename as the han
 message=Hello, World
 ```
 
-This will result in "Hello, World" being passed as the argument to the `message` parameter in the handlers `initialize` method. The section name `[RootHandler]` in the config file, matches the class name for the handler in the Python module.
+This will result in "Hello, World" being passed as the argument to the `message` parameter in the handlers `initialize` method. 
+
+The section name `[RootHandler]` in the config file, must match the class name for the handler in the Python module.
 
 ## Multiple handlers in a single module
 
