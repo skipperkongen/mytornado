@@ -35,7 +35,7 @@ class TornadoBase(object):
 		
 	def load_handlers(self):
 		result = []
-		modules = filter (lambda (name,obj): inspect.ismodule(obj) and name.endswith('_handler'), inspect.getmembers(handlers))
+		modules = filter (lambda (name,obj): inspect.ismodule(obj), inspect.getmembers(handlers))
 		for name, obj in modules:
 			for name2, obj2 in inspect.getmembers(obj):
 				if inspect.isclass(obj2) and issubclass(obj2.__class__, tornado.web.RequestHandler.__class__):
