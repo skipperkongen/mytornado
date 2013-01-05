@@ -1,6 +1,7 @@
 import os
 import inspect
 import handlers
+import ConfigParser
 
 import tornado.httpserver
 import tornado.ioloop
@@ -25,7 +26,7 @@ class TornadoBase(object):
 		
 		handlers = self.load_handlers()
 		for h in handlers:
-			print "Found handler for: %s" % (h[0]) 
+			print "Found handler for: %s. Conf: %s" % (h[0], h[2])
 		
 		app = tornado.web.Application(
 			handlers, **settings
@@ -39,12 +40,28 @@ class TornadoBase(object):
 		
 	def load_handlers(self):
 		result = []
-		modules = filter (lambda (name,obj): inspect.ismodule(obj), inspect.getmembers(handlers))
-		for name, obj in modules:
-			for name2, obj2 in inspect.getmembers(obj):
-				if inspect.isclass(obj2) and issubclass(obj2.__class__, tornado.web.RequestHandler.__class__):
-					result.append((obj2.get_url_pattern(), obj2))
+		handler_submodules = filter (lambda (name,obj): inspect.ismodule(obj) and name != "__init__", inspect.getmembers(handlers))
+		for modulename, module in handler_submodules:
+			# load config file 
+			module_conf = self.load_config_for_module(modulename)
+			for handlername, handlerclass in inspect.getmembers(module):
+				if inspect.isclass(handlerclass) and issubclass(handlerclass.__class__, tornado.web.RequestHandler.__class__):
+					result.append(
+						(handlerclass.get_url_pattern(), handlerclass, module_conf.setdefault( handlername, {}) )
+					)
 		return result
+	
+	def load_config_for_module(self, modulename):
+		config_file = os.path.join(os.path.dirname(__file__), "handlers", "%s.conf" % (modulename) )
+		config = ConfigParser.ConfigParser()
+		config.read( config_file )
+		config_dict = {}
+		for section in config.sections():
+			config_dict[section] = {}
+			for option in config.options(section):
+				config_dict[section][option] = config.get(section, option)
+		
+		return config_dict
 
 if __name__ == '__main__':
 	server = TornadoBase()

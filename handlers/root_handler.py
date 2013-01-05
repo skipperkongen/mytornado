@@ -6,5 +6,8 @@ class RootHandler(tornado.web.RequestHandler):
 	def get_url_pattern():
 		return r'/'
 		
+	def initialize(self, message):
+		self.message = message
+		
 	def get(self):
-		self.write('Welcome to /')
+		self.write('Welcome to /. Message: %s' % self.message)
