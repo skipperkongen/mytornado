@@ -1,4 +1,5 @@
 import tornado.web
+import tornado.options
 import mytornado
 
 class RootHandler(tornado.web.RequestHandler):
@@ -11,4 +12,4 @@ class RootHandler(tornado.web.RequestHandler):
 		self.message = message
 		
 	def get(self):
-		self.render('index.html', message=self.message, uri=self.request.uri, baseuri=MyTornadoServer.baseuri)
+		self.render('index.html', message=self.message, uri=self.request.uri, baseuri=tornado.options.baseuri)
