@@ -15,6 +15,9 @@ define("baseuri", default='', help="base uri prefix for redirects, absolute urls
 
 class MyTornadoServer(object):
 	"""docstring for TornadoBase"""
+	
+	baseuri = options.baseuri
+	
 	def __init__(self):
 		super(MyTornadoServer, self).__init__()		
 		
