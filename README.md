@@ -1,10 +1,12 @@
 # Tornado-base-server
 
-Tornado server that allows you to drop files with your handler code in a directory.
+Tornado server template. When the server starts, it automatically detects handler classes in the `handlers` directory, and registers them with the tornado application.
 
-To register a handler, create a file in the handlers directory that contains your handler class. The handler class must have a static method called `get_url_pattern()` that returns a string.
+To register a handler, create a file in the handlers directory that contains your handler class(es). Each handler class must have a static method called `get_url_pattern()`. The handler will be assigned by tornado to listen for requests on that url.
 
-## Example
+I'm writing a lot of Tornado applications, and this repository contains a template that I was repeating across projects again and again.
+
+## Example handler
 
 `handlers/root_handler.py`:
 
