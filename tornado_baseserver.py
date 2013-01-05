@@ -25,7 +25,7 @@ class TornadoBase(object):
 		
 		handlers = self.load_handlers()
 		for h in handlers:
-			print "Found handler %s" % (h[0]) 
+			print "Found handler for: %s" % (h[0]) 
 		
 		app = tornado.web.Application(
 			handlers, **settings
@@ -33,8 +33,9 @@ class TornadoBase(object):
 		
 		http_server = tornado.httpserver.HTTPServer(app)
 		http_server.listen(options.port)
+		print "Starting tornado server on port %d" % (options.port)
 		tornado.ioloop.IOLoop.instance().start()
-		print "Tornado server started on port %d" % (options.port)
+
 		
 	def load_handlers(self):
 		result = []
