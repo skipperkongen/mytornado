@@ -33,7 +33,8 @@ class RootHandler(tornado.web.RequestHandler):
 		return r'/'
 		
 	def initialize(self, message):
-		"""(Optional) you must implement this method if you're using a config file that matches the module name (see config example below)."""
+		"""(Optional) you must implement this method if you're using a config file that 
+		matches the module name (see config example below)."""
 		self.message = message
 		
 	def get(self):
