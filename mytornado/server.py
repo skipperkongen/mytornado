@@ -50,7 +50,7 @@ class MyTornadoServer(object):
 		# register startup time for uptime handler
 		startup_millis = time.mktime(time.gmtime())
 		handlers.append(
-			(r'/uptime',UptimeHandler, {'startup_millis': startup_millis})
+			(r'/mytornado/uptime', UptimeHandler, {'startup_millis': startup_millis})
 		)
 		
 		app = tornado.web.Application(
