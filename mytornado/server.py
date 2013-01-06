@@ -2,6 +2,9 @@ import os
 import inspect
 import handlers
 import ConfigParser
+import time
+import datetime
+
 
 import tornado.httpserver
 import tornado.ioloop
@@ -12,6 +15,17 @@ from tornado.options import define, options
 
 define("port", default=8080, help="run on the given port", type=int)
 define("baseuri", default='', help="base uri prefix for redirects, absolute urls etc", type=str)
+
+class UptimeHandler(tornado.web.RequestHandler):
+		
+	def initialize(self, startup_millis):
+		self.startup_millis = startup_millis
+		
+	def get(self):
+		current_millis = time.mktime(time.gmtime())
+		diff_millis = current_millis - self.startup_millis
+		delta = datetime.timedelta(seconds=diff_millis)
+		self.write("uptime: %dd%ds" % (delta.days, delta.seconds))
 
 class MyTornadoServer(object):
 	"""docstring for TornadoBase"""
@@ -27,9 +41,14 @@ class MyTornadoServer(object):
 		}
 		
 		handlers = self.load_handlers()
-		print handlers
 		for h in handlers:
 			print "Found handler for: %s. Conf: %s" % (h[0], h[2])
+			
+		# register startup time for uptime handler
+		startup_millis = time.mktime(time.gmtime())
+		handlers.append(
+			(r'/uptime',UptimeHandler, {'startup_millis': startup_millis})
+		)
 		
 		app = tornado.web.Application(
 			handlers, **settings
@@ -49,10 +68,8 @@ class MyTornadoServer(object):
 		for modulename, module in handler_modules:
 			# load config file 
 			module_conf = self.load_config_for_module(modulename)
-			print modulename
 			for handlername, handlerclass in inspect.getmembers(module):
 				if issubclass(handlerclass.__class__, tornado.web.RequestHandler.__class__):
-					print "BULU",handlername, handlerclass
 					result.append(
 						(handlerclass.get_url_pattern(), handlerclass, module_conf.setdefault( handlername, {}) )
 					)
