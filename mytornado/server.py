@@ -1,20 +1,21 @@
 import os
+import imp
 import inspect
-import handlers
 import ConfigParser
 import time
 import datetime
-
 
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
 
+import mytornado.handlers
+
 from tornado.options import define, options
 
 define("port", default=8080, help="run on the given port", type=int)
-define("baseuri", default='', help="base uri prefix for redirects, absolute urls etc", type=str)
+define("handlers_path", default=os.path.join(os.path.dirname(__file__), "../handlers"), help="path to directory that holds handlers", type=str)
 
 class UptimeHandler(tornado.web.RequestHandler):
 		
@@ -62,21 +63,27 @@ class MyTornadoServer(object):
 		
 	def load_handlers(self):
 		result = []
-		handler_modules = filter(lambda (name, obj): inspect.ismodule(obj), inspect.getmembers(handlers))
-		handler_modules = filter(lambda (name, obj): obj.__package__ == 'handlers', handler_modules)
-
-		for modulename, module in handler_modules:
-			# load config file 
-			module_conf = self.load_config_for_module(modulename)
-			for handlername, handlerclass in inspect.getmembers(module):
-				if issubclass(handlerclass.__class__, tornado.web.RequestHandler.__class__):
+		# list python files in handler directory
+		module_files = filter(lambda x: x.endswith('.py'), os.listdir(options.handlers_path))
+		for module_file in module_files:
+			head, tail = os.path.split(module_file)
+			module_name, ext = os.path.splitext(tail)
+			full_path = os.path.join(options.handlers_path, module_file)
+			print "DEBUG", head, tail, module_name, ext, module_file
+			module_obj = imp.load_source('mytornado.handlers.%s' % (module_name), full_path)
+			# create tuple
+			module_conf = self.load_config_for_module( module_name )
+			for handler_name, handler_class in inspect.getmembers( module_obj ):
+				if inspect.isclass(handler_class) and issubclass(handler_class, tornado.web.RequestHandler):
+					print "DEBUG2", handler_name, handler_class 
 					result.append(
-						(handlerclass.get_url_pattern(), handlerclass, module_conf.setdefault( handlername, {}) )
+						( handler_class.get_url_pattern(), handler_class, module_conf.setdefault( handler_name, {}) )
 					)
+
 		return result
 	
 	def load_config_for_module(self, modulename):
-		config_file = os.path.join(os.path.dirname(__file__), "..", "handlers", "%s.conf" % (modulename) )
+		config_file = os.path.join(options.handlers_path, "%s.conf" % (modulename) )
 		config = ConfigParser.ConfigParser()
 		config.read( config_file )
 		config_dict = {}

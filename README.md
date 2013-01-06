@@ -6,19 +6,14 @@ I'm writing a lot of Tornado applications, and this repository contains a templa
 
 ## Requirements for handlers
 
-To register a new handler, create a Python module file in the handlers directory that contains your handler class(es). Each module may contain any number of handlers, which will all be loaded when the server starts.
+To register a new handler, create a Python module file in the handlers directory (configure with `--handlers_path=XXX` command line option) that contains your handler class(es). Each Python module in directory may contain any number of handlers, which will all be loaded when the server starts.
 
 * Your handler class(es) must inherit from `tornado.web.RequestHandler`
 * Each handler class must have a static method called `get_url_pattern()` that returns the URL pattern that the handler is responsible for
-* You must include an import of your handler class in the `handlers.__init__.py` module, e.g. `from my_handler.py ìmport *`.
+
+You can optionally create a configuration file with the same filename as the handler module, but with a `.conf` extension. This file must be in the same directory used for handlers. It should contain a section for each class that has a configuration (see example below).
 
 ## Example handler
-
-`handlers/__init__.py`:
-
-```python
-from root_handler import *
-```
 
 `handlers/root_handler.py`:
 
@@ -40,8 +35,6 @@ class RootHandler(tornado.web.RequestHandler):
 	def get(self):
 		self.write('Welcome to /. Message: %s' % self.message)
 ```
-
-You can optionally supply a configuration file with the same filename as the handler module, but with a `.conf` extension.
 
 `handlers/root_handler.conf`:
 

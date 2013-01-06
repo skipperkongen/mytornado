@@ -1,6 +1,6 @@
 import tornado.web
-from tornado.options import options
-import mytornado
+
+from datetime import timedelta
 
 class RootHandler(tornado.web.RequestHandler):
 	
@@ -12,4 +12,4 @@ class RootHandler(tornado.web.RequestHandler):
 		self.message = message
 		
 	def get(self):
-		self.render('index.html', message=self.message, uri=self.request.uri, baseuri=options.baseuri)
+		self.render('index.html', message=self.message)
