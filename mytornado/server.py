@@ -79,7 +79,7 @@ class MyTornadoServer(object):
 				if inspect.isclass(handler_class) and issubclass(handler_class, tornado.web.RequestHandler):
 					print "DEBUG2", handler_name, handler_class 
 					result.append(
-						( handler_class.get_url_pattern(), handler_class, module_conf.setdefault( handler_name, {}) )
+						( module_conf[handler_name]['url_pattern'], handler_class, module_conf[handler_name] )
 					)
 
 		return result

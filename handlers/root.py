@@ -3,12 +3,9 @@ import tornado.web
 from datetime import timedelta
 
 class RootHandler(tornado.web.RequestHandler):
-	
-	@staticmethod
-	def get_url_pattern():
-		return r'/'
-		
-	def initialize(self, message):
+			
+	def initialize(self, url_pattern, message):
+		self.url_pattern = url_pattern
 		self.message = message
 		
 	def get(self):
