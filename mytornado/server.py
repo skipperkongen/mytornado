@@ -15,7 +15,9 @@ import mytornado.handlers
 from tornado.options import define, options
 
 define("port", default=8080, help="run on the given port", type=int)
-define("handlers_path", default=os.path.join(os.path.dirname(__file__), "../handlers"), help="path to directory that holds handlers", type=str)
+define("handler_path", default=os.path.join(os.path.dirname(__file__), "../handlers"), help="path to directory that holds handlers", type=str)
+define("template_path", default=os.path.join(os.path.dirname(__file__), "../templates"), help="path to directory that holds templates", type=str)
+define("static_path", default=os.path.join(os.path.dirname(__file__), "../static"), help="path to directory that holds static files", type=str)
 
 class UptimeHandler(tornado.web.RequestHandler):
 		
@@ -37,8 +39,8 @@ class MyTornadoServer(object):
 		tornado.options.parse_command_line()
 		
 		settings = {
-			"static_path": os.path.join(os.path.dirname(__file__), "../static"),
-			"template_path": os.path.join(os.path.dirname(__file__), "../templates")
+			"static_path": os.path.join(os.path.dirname(__file__), options.static_path),
+			"template_path": os.path.join(os.path.dirname(__file__), options.template_path)
 		}
 		
 		handlers = self.load_handlers()
@@ -64,11 +66,11 @@ class MyTornadoServer(object):
 	def load_handlers(self):
 		result = []
 		# list python files in handler directory
-		module_files = filter(lambda x: x.endswith('.py'), os.listdir(options.handlers_path))
+		module_files = filter(lambda x: x.endswith('.py'), os.listdir(options.handler_path))
 		for module_file in module_files:
 			head, tail = os.path.split(module_file)
 			module_name, ext = os.path.splitext(tail)
-			full_path = os.path.join(options.handlers_path, module_file)
+			full_path = os.path.join(options.handler_path, module_file)
 			print "DEBUG", head, tail, module_name, ext, module_file
 			module_obj = imp.load_source('mytornado.handlers.%s' % (module_name), full_path)
 			# create tuple
@@ -83,7 +85,7 @@ class MyTornadoServer(object):
 		return result
 	
 	def load_config_for_module(self, modulename):
-		config_file = os.path.join(options.handlers_path, "%s.conf" % (modulename) )
+		config_file = os.path.join(options.handler_path, "%s.conf" % (modulename) )
 		config = ConfigParser.ConfigParser()
 		config.read( config_file )
 		config_dict = {}
