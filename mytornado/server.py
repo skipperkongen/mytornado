@@ -10,7 +10,7 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 
-import mytornado.handlers
+from mytornado.handlers.uptime import UptimeHandler
 
 from tornado.options import define, options
 
@@ -18,17 +18,6 @@ define("port", default=8080, help="run on the given port", type=int)
 define("handler_path", default=os.path.join(os.path.dirname(__file__), "../handlers"), help="path to directory that holds handlers", type=str)
 define("template_path", default=os.path.join(os.path.dirname(__file__), "../templates"), help="path to directory that holds templates", type=str)
 define("static_path", default=os.path.join(os.path.dirname(__file__), "../static"), help="path to directory that holds static files", type=str)
-
-class UptimeHandler(tornado.web.RequestHandler):
-		
-	def initialize(self, startup_millis):
-		self.startup_millis = startup_millis
-		
-	def get(self):
-		current_millis = time.mktime(time.gmtime())
-		diff_millis = current_millis - self.startup_millis
-		delta = datetime.timedelta(seconds=diff_millis)
-		self.write("uptime: %dd%ds" % (delta.days, delta.seconds))
 
 class MyTornadoServer(object):
 	"""docstring for TornadoBase"""
