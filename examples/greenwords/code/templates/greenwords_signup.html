@@ -1,0 +1,87 @@
+{% extends "greenwords_base.html" %}
+
+{% block title %}
+	<title>Greenwords signup</title>
+{% end %}
+
+{% block stylesheetsandscripts %}
+	<link rel="stylesheet" type="text/css" href="/static/greenwords_signup.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script type="text/javascript" src="/static/greenwords_signup.js"></script>
+{% end %}
+
+{% block header %}
+	<h1>Greenwords</h1>
+{% end %}
+
+{% block links %}
+	<a id="whoweare" href="">Who we are</a>
+	<div class="infobox" id="infobox_whoweare" title="Who we are">
+		<p><strong>Kostas Kefaloukos</strong>: Educated in the dark arts of computer science at the University of Copenhagen. Has worked for both private technology companies and government agencies in Denmark. Loves algorithms and such. Married to Marusa.</p>
+		<p><strong>Marusa Kefaloukos</strong>: Trained as a biologist at the University of Copenhagen, has worked with sustainability, urban gardening, urban biology. Owns blog citynature.dk were she writes about sustainable cities. Loves everything green. Married to Kostas.</p>
+	</div>
+{% end %}
+
+
+{% block content %}
+	<div class="infobox" id="infobox_whatis" title="What is eco-friendly online advertising?">
+		<p>What we mean by the words «eco-friendly online advertising»:
+		</p>
+		<ul>
+			<li>Promotions for <strong>products</strong> like <em>organic food</em>, <em>organic t-shirts</em>, <em>electic cars</em>, <em>sustainable vacations</em> etc</li>
+			<li>Promotions for <strong>events</strong> such as <em>festivals</em>, <em>conventions</em>, <em>workshops</em> etc, as long as they have an eco-friendly theme</li>
+			<li>And by <em>eco-friendly</em> we also mean <em>sustainable</em>, <em>green</em>, <em>organic</em>, <em>dreadlocky</em>, <em>vegan</em>, <em>native</em>, <em>having good karma</em> and <em>saving the planet</em>.
+		</ul>
+		Sure, it is rather subjective what eco-friendly means, but we think that choice is better left to humans (such as you) than to robots living in a datacenter :-)
+	</div>
+	<img src="/static/comingsoon.gif" style="float: right;" />
+    <h3>Sign up for 100% <u>eco-friendly</u> online advertising <a id="whatis" href="">?</a></h3>
+    <p>Sign up to recieve an email when we launch!</p>
+    <form method="post">
+    	<input type="text" name="email" size="26" value="Enter your email address" data-default="Enter your email address" />
+		<input type="submit" value="Sign up" />
+    </form>
+    <p style="font-size: small;">(We promise to only send exciting emails about getting started with eco-friendly advertising using Greenwords. We will not share your email address with <em>anyone</em>)</p>
+{% end %}
+
+{% block more %}
+	<h3>For eco-friendly advertisers</h3>
+	
+	<p>We show your ads on websites, give you stats and insight about how users respond to your products, let you manage your campaigns by territory etc. You know, the usual deal. <strong>So what's new?</strong></p>
+	
+	<ul>
+		<li>We show your ads to people who are <strong>passionate about everything eco-friendly!</strong></li>
+		<li>This means you will have more clicks per ad impression</li>
+		<li>You can <strong>advertise for free</strong> on Greenwords if your project is both non-profit and eco-friendly!</li>
+		<li>Greenwords offers <strong>cheap prices</strong> to eco-friendly commercial advertisers, because you are doing your part for a healthy planet. We want to help you!</li>
+	</ul>	
+
+	<h3>For eco-friendly website owners</h3>
+	
+	<p>You earn money every time an advertisement is shown on your website, and you earn even more when a user click an ad. You know, the usual deal. <strong>So what's new?</strong></p>
+	
+	<ul>
+		<li>General online advertisement providers such as Google <strong>ultimately decide</strong> what ads to display on your website. Sometimes those ads areill-aligned with your values and the values you promote on your website. You basically have very little control over the advertisement content</li>
+		<li>Greenwords will only show <strong>100% eco-friendly advertisements</strong> on your website, <em>end of story!</em></li>
+		<li>We know it's not all about money. You may choose to let a percentage of the ads be for non-profit projects that make a difference for the future of our planet! Think of this as a kind of charity that you can opt in on :-)</li>
+	</ul>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'gween'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+{% end %}

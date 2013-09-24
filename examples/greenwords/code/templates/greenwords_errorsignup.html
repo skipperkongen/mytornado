@@ -1,0 +1,17 @@
+{% extends "greenwords_base.html" %}
+
+{% block title %}
+	<title>Error signing up!</title>
+{% end %}
+
+{% block header %}
+	<h1>We could not register your email address!</h1>
+{% end %}
+
+{% block content %}
+    <p>We could not validate your email address: {{email}}. Please <a href="signup">try again!</a></p>  
+{% end %}
+
+{% block footer %}
+  <p>2013 Greenwords</p>
+{% end %}

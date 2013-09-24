@@ -1,0 +1,100 @@
+body {
+	margin: 0;
+	border-top: 3px solid #A86044;
+	border-bottom: 5px solid #A86044;
+	/*background-color: rgb(248, 248, 248);*/
+	font-family: OpenSans, 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
+	color: rgb(236, 236, 231);
+
+
+	/* fallback/image non-cover color */
+	background-color: #884024;
+	
+	background-image: url('pattern-ckc2.png');
+
+	/* Safari 4+, Chrome 1-9 */
+	/*background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#884024), to(#682004));*/
+
+	/* Safari 5.1+, Mobile Safari, Chrome 10+ */
+	/* background-image: -webkit-linear-gradient(top, #884024, #682004); */
+
+	/* Firefox 3.6+ */
+	/*background-image: -moz-linear-gradient(top, #884024, #682004);*/
+
+	/* IE 10+ */
+	/*background-image: -ms-linear-gradient(top, #884024, #682004);*/
+
+	/* Opera 11.10+ */
+	/*background-image: -o-linear-gradient(top, #884024, #682004);*/
+}
+
+a, a:visited, a:active {
+	color: #A86044;
+}
+
+input[type=text] {
+	color: #213737;
+	margin:2px;
+	padding: 8px;
+}
+
+input[type=submit] {
+	margin:2px;
+	font-family: "Lucida Console", Monaco, monospace;
+}
+
+#container {
+	margin-left:auto;
+	margin-right:auto;
+	width: 800px;
+}
+
+#header {
+	font-size: 28px;
+	font-style: normal;
+	text-rendering: optimizelegibility;
+}
+
+#header h1 {
+	margin: 15px 0 0 10px;
+	font-family: OpenSans, 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
+	font-style: italic;
+	text-shadow:
+	   -1px -1px 0 #A86044,  
+	    1px -1px 0 #A86044,
+	    -1px 1px 0 #A86044,
+	     1px 1px 0 #A86044;	
+}
+
+#links {
+	margin-bottom: 5px;
+	text-align: right;
+}
+
+#content {
+	padding: 0em 0em 1em 2em;
+	border-top: 3px solid #5D9873;
+	border-bottom: 1px solid #3D7853;
+	/*background-color: #4D8863; */
+	background-image: url('pattern-2ier.png');
+	color: #C8DE9C;
+}
+
+#more {
+	padding: 1em 2em 1em 2em;
+	color: #635B2F;
+	border-top: 3px solid #B8CE8C;
+	background-color: #A8BE7C;
+}
+
+#footer {
+	padding: 1em 2em 1em 2em;
+	color: rgb(236, 236, 231);
+	background-color: #213737;
+}
+
+#content h3 {
+	color: rgb(236, 236, 231);
+	font-size: 18pt;	
+}
+
