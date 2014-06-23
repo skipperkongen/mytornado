@@ -10,7 +10,7 @@ define(
 	default=os.path.join(
 		os.path.dirname(os.path.abspath(__file__)),
 		"mytornado",
-		"default"
+		"default_app"
 	), 
 	help="directory that contains the handlers/templates/static subdirectories", 
 	type=str

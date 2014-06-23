@@ -10,8 +10,6 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 
-from mytornado.handlers.uptime import UptimeHandler
-
 class Server(object):
 	"""docstring for TornadoBase"""
 		
@@ -29,10 +27,10 @@ class Server(object):
 		for h in handlers:
 			print "Found handler for: %s. Conf: %s" % (h[0], h[2])
 			
-		# register startup time for built-in uptime handler
+		# add builtin handlers, i.e. uptime handler
 		startup_millis = time.mktime(time.gmtime())
 		handlers.append(
-			(r'/mytornado/uptime', UptimeHandler, {'startup_millis': startup_millis})
+			(r'/_uptime', UptimeHandler, {'startup_millis': startup_millis})
 		)
 		
 		app = tornado.web.Application(
@@ -84,7 +82,16 @@ class Server(object):
 		return config_dict
 		
 
+class UptimeHandler(tornado.web.RequestHandler):
 		
+	def initialize(self, startup_millis):
+		self.startup_millis = startup_millis
 		
+	def get(self):
+		current_millis = time.mktime(time.gmtime())
+		diff_millis = current_millis - self.startup_millis
+		delta = datetime.timedelta(seconds=diff_millis)
+		self.write("uptime: %dd%ds" % (delta.days, delta.seconds))		
+
 
 
