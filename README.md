@@ -1,4 +1,6 @@
-# MyTornady - reducing the amount of boiler plate code for Tornado apps
+# MyTornady
+
+> MyTornady reduces the amount of boiler plate code for Tornado apps
 
 ## Quick start
 
