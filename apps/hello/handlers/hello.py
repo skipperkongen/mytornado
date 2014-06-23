@@ -1,8 +1,6 @@
 import tornado.web
 
-from datetime import timedelta
-
-class RootHandler(tornado.web.RequestHandler):
+class HelloHandler(tornado.web.RequestHandler):
 			
 	def initialize(self, url_pattern, message):
 		self.url_pattern = url_pattern
