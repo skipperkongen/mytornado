@@ -53,7 +53,7 @@ class Server(object):
 			head, tail = os.path.split( module_file )
 			module_name, ext = os.path.splitext( tail )
 			full_path = os.path.join(handlers_path, module_file)
-			module_obj = imp.load_source( 'mytornado.handlers.%s' % (module_name), full_path )
+			module_obj = imp.load_source( '%s' % (module_name), full_path )
 			# load configuration for handler module 
 			module_conf = self.load_config_for_module( handlers_path, module_name )
 			for handler_name, handler_class in inspect.getmembers( module_obj ):
