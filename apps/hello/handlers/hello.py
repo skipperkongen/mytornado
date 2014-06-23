@@ -9,4 +9,4 @@ class RootHandler(tornado.web.RequestHandler):
 		self.message = message
 		
 	def get(self):
-		self.render('root_index.html', message=self.message)
+		self.render('hello_index.html', message=self.message)
