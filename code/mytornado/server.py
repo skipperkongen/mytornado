@@ -12,11 +12,11 @@ import tornado.web
 
 from mytornado.handlers.uptime import UptimeHandler
 
-class MyTornadoServer(object):
+class Server(object):
 	"""docstring for TornadoBase"""
 		
 	def __init__(self, options):
-		super(MyTornadoServer, self).__init__()		
+		super(Server, self).__init__()		
 		
 		settings = {
 			"static_path": "%s/static" % (options.app),
