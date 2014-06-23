@@ -18,13 +18,14 @@ class Server(object):
 	def __init__(self, options):
 		super(Server, self).__init__()		
 		
+		handlers_path = "%s/handlers" % (options.app)
 		settings = {
 			"static_path": "%s/static" % (options.app),
 			"template_path": "%s/templates" % (options.app)
 		}
 		
-		# load handlers found in handler_path
-		handlers = self.load_handlers("%s/handlers" % (options.app))
+		# load handlers found in handlers_path
+		handlers = self.load_handlers(handlers_path)
 		for h in handlers:
 			print "Found handler for: %s. Conf: %s" % (h[0], h[2])
 			
@@ -44,19 +45,19 @@ class Server(object):
 		tornado.ioloop.IOLoop.instance().start()
 
 		
-	def load_handlers(self, handler_path):
+	def load_handlers(self, handlers_path):
 		result = []
 		# list python files in handler directory
-		module_files = filter(lambda x: x.endswith('.py'), os.listdir( handler_path ))
+		module_files = filter(lambda x: x.endswith('.py'), os.listdir( handlers_path ))
 		# load all handler classes found in files
 		for module_file in module_files:
 			# load file contents as python module
 			head, tail = os.path.split( module_file )
 			module_name, ext = os.path.splitext( tail )
-			full_path = os.path.join(handler_path, module_file)
+			full_path = os.path.join(handlers_path, module_file)
 			module_obj = imp.load_source( 'mytornado.handlers.%s' % (module_name), full_path )
 			# load configuration for handler module 
-			module_conf = self.load_config_for_module( handler_path, module_name )
+			module_conf = self.load_config_for_module( handlers_path, module_name )
 			for handler_name, handler_class in inspect.getmembers( module_obj ):
 				# only load instances of tornado.web.RequestHandler
 				if inspect.isclass(handler_class) and issubclass( handler_class, tornado.web.RequestHandler ):
@@ -67,9 +68,9 @@ class Server(object):
 		# return list of handler tuples 
 		return result
 	
-	def load_config_for_module(self, handler_path, modulename):
+	def load_config_for_module(self, handlers_path, modulename):
 		# find .conf file that matches handler module. File is in handlers directory
-		config_file = os.path.join(handler_path, "%s.conf" % (modulename) )
+		config_file = os.path.join(handlers_path, "%s.conf" % (modulename) )
 		config = ConfigParser.ConfigParser()
 		# read contents (INI file)
 		config.read( config_file )
